@@ -14,9 +14,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 </head>
 <body>
 <div class="box">
-    <input type="text" id="taskInput" placeholder="<Teks to do>" />
-    <button onclick="addTask()">Tambah</button>
-    <ul id="taskList"></ul>
+    <div class="input-container">
+        <input type="text" id="taskInput" placeholder="<Teks to do>" />
+        <button onclick="addTask()">Tambah</button>
+    </div>
+
+    <div id="taskList"></div>
+
     <br>
     <a href="logout.php">Logout</a>
 </div>

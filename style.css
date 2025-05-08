@@ -1,40 +1,56 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #2307f7;
+    margin: 0;
 }
 
 .box {
-    border: 1px solid #000;
-    padding: 60px;
-    width: 500px;
+    border: 1px solid #2c08de;
+    padding: 40px;
+    width: 600px;
     margin: 50px auto;
     background-color: #fff;
 }
 
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-button,
-input[type="submit"] {
+.input-container input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #000;
+}
+
+.input-container button {
     padding: 10px 20px;
-    margin-top: 10px;
+    font-size: 16px;
+    border: 1px solid #000;
+    background: white;
     cursor: pointer;
 }
 
-ul {
-    list-style: none;
-    padding-left: 0;
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
-li {
-    padding: 5px 0;
+.task-text {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #000;
+    background: #fff;
 }
 
-.error {
-    color: red;
+.task-buttons button {
+    border: 1px solid #000;
+    background: white;
+    padding: 8px 12px;
+    cursor: pointer;
 }
