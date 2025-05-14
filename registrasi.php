@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Cek apakah username sudah digunakan
-    $cekUsername = $koneksi->prepare("SELECT * FROM users WHERE username = ?");
+    $cekUsername = $conn->prepare("SELECT * FROM users WHERE username = ?");
     $cekUsername->bind_param("s", $username);
     $cekUsername->execute();
     $resultUsername = $cekUsername->get_result();
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Username telah terpakai!";
     } else {
         $id = rand(1000, 9999); // ID acak
-        $stmt = $koneksi->prepare("INSERT INTO users (id, username, password) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO users (id, username, password) VALUES (?, ?, ?)");
         $stmt->bind_param("iss", $id, $username, $password);
         if ($stmt->execute()) {
             $success = "Registrasi berhasil. <a href='login.php'>Login sekarang</a>";
