@@ -1,18 +1,12 @@
 <?php
 session_start();
+require 'koneksi.php';
 
-// Koneksi database
-$koneksi = new mysqli("localhost", "root", "", "dbplatform");
-if ($koneksi->connect_error) {
-    die("Koneksi gagal: " . $koneksi->connect_error);
-}
-
-$error = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $stmt = $koneksi->prepare("SELECT * FROM tbplatform WHERE username = ? AND password = ?");
+    $stmt = $koneksi->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
     $stmt->bind_param("ss", $username, $password);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -37,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <div class="box">
     <h2>Login</h2>
-    <?php if ($error) echo "<p class='error'>$error</p>"; ?>
     <form method="post">
         <label>Username:</label>
         <input type="text" name="username" required />
