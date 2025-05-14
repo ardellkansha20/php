@@ -1,33 +1,31 @@
 <?php
-// Koneksi database
-$koneksi = new mysqli("localhost", "root", "", "dbplatform");
-if ($koneksi->connect_error) {
-    die("Koneksi gagal: " . $koneksi->connect_error);
-}
+session_start();
+require 'koneksi.php';
 
-$success = '';
 $error = '';
+$success = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = "admin"; // sudah fix
+    $username = $_POST['username']; 
     $password = $_POST['password'];
 
-    // Cek apakah password sudah digunakan
-    $cekPassword = $koneksi->prepare("SELECT * FROM tbplatform WHERE password = ?");
-    $cekPassword->bind_param("s", $password);
-    $cekPassword->execute();
-    $resultPassword = $cekPassword->get_result();
+    // Cek apakah username sudah digunakan
+    $cekUsername = $koneksi->prepare("SELECT * FROM users WHERE username = ?");
+    $cekUsername->bind_param("s", $username);
+    $cekUsername->execute();
+    $resultUsername = $cekUsername->get_result();
 
-    if ($resultPassword->num_rows > 0) {
-        $error = "Password telah terpakai!";
-    }else {$id = rand(1000, 9999);
-           $stmt = $koneksi->prepare("INSERT INTO tbplatform (id, username, password) VALUES (?, ?, ?)");
-           $stmt->bind_param("iss", $id, $username, $password);
-            if ($stmt->execute()) {
-                $success = "Registrasi berhasil. <a href='login.php'>Login sekarang</a>";
-            } else {
-                $error = "Registrasi gagal!";
-            }
+    if ($resultUsername->num_rows > 0) {
+        $error = "Username telah terpakai!";
+    } else {
+        $id = rand(1000, 9999); // ID acak
+        $stmt = $koneksi->prepare("INSERT INTO users (id, username, password) VALUES (?, ?, ?)");
+        $stmt->bind_param("iss", $id, $username, $password);
+        if ($stmt->execute()) {
+            $success = "Registrasi berhasil. <a href='login.php'>Login sekarang</a>";
+        } else {
+            $error = "Registrasi gagal!";
+        }
     }
 }
 ?>
@@ -45,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php if ($success) echo "<p class='success'>$success</p>"; ?>
     <form method="post">
         <label>Username:</label>
-        <input type="text" name="username" value="admin" readonly required />
+        <input type="text" name="username" required />
         <label>Password:</label>
         <input type="password" name="password" required />
         <br>
