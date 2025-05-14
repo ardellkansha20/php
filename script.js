@@ -9,19 +9,21 @@ function addTask() {
         const taskItem = document.createElement("div");
         taskItem.className = "task-item";
 
-        // Buat teks tugas
-        const taskText = document.createElement("div");
+        // Buat input field readonly untuk teks to-do
+        const taskText = document.createElement("input");
+        taskText.type = "text";
+        taskText.value = text;
+        taskText.readOnly = true;
         taskText.className = "task-text";
-        taskText.textContent = text;
 
-        // Buat tombol-tombol aksi
+        // Buat tombol aksi
         const buttonsDiv = document.createElement("div");
         buttonsDiv.className = "task-buttons";
 
         const doneButton = document.createElement("button");
         doneButton.textContent = "Selesai";
         doneButton.onclick = () => {
-            taskText.style.textDecoration = "line-through";
+            taskText.classList.toggle("completed");
         };
 
         const deleteButton = document.createElement("button");
